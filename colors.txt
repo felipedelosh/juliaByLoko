@@ -1,0 +1,87 @@
+snow
+ghost white
+white smoke
+gainsboro
+floral white
+old lace
+linen
+antique white
+papaya whip
+azure
+
+PaleVioletRed1
+PaleVioletRed2
+HotPink1
+HotPink2
+LightPink1
+LightPink2
+LightPink3
+HotPink3
+LightPink4
+HotPink4
+
+yellow
+gold
+gold2
+goldenrod
+goldenrod1
+goldenrod2
+yellow2
+yellow3
+yellow4
+gold4
+
+indian red
+salmon
+orange
+dark orange
+coral
+light coral
+tomato
+orange red
+red
+deep pink
+
+cyan
+sky blue
+deep sky blue
+medium blue
+navy
+blue
+cyan3
+cyan4
+blue2
+blue4
+
+pale green
+dark sea green
+lawn green
+green2
+green3
+dark green
+forest green
+olive drab
+dark olive green
+green4
+
+VioletRed4
+magenta3
+magenta4
+orchid3
+orchid4
+DarkOrchid2
+DarkOrchid3
+DarkOrchid4
+purple3
+purple4
+
+gray10
+gray9
+gray8
+gray7
+gray6
+gray5
+gray4
+gray3
+gray2
+black
