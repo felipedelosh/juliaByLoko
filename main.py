@@ -37,7 +37,7 @@ class Mandelbrot:
         """
         self.MaxLongAxisX = 2
         self.MaxLongAxisY = 2
-        self.sizeOfPlane = 2 # It's a size of all Axis 
+        self.sizeOfPlane = 2
         #Try to load a colors.txt
         self.convergenceColors = []
         try:
@@ -62,11 +62,11 @@ class Mandelbrot:
         self.txtScale.place(x=20, y=50)
         self.btnCalcular.place(x=200, y=50)
         # Draw x and y Axis
-        self.canvas.create_line(0, 360, 1280, 360)
-        self.canvas.create_line(640, 0, 640, 720)
+        #self.canvas.create_line(0, 360, 1280, 360)
+        #self.canvas.create_line(640, 0, 640, 720)
 
-        for i in range(0, len(self.convergenceColors)):
-            self.canvas.create_rectangle(5+(i*5), 5, 10+(i*10), 10, fill=self.convergenceColors[i])
+        #for i in range(0, len(self.convergenceColors)):
+        #    self.canvas.create_rectangle(5+(i*5), 5, 10+(i*10), 10, fill=self.convergenceColors[i])
 
       
         # Refresh Screem
@@ -94,18 +94,30 @@ class Mandelbrot:
 
         x = ((X/totalPixels)*(sizeOfPlane*2)) - sizeOfPlane
 
+
+        Note : Ignore all becouse diverge
+        x<-1.9
+        x>0.5 
+        y > 1.5
+
         """
         self.canvas.delete("pixels")
 
         if self.validateScale():
             for i in range(1, 240):
                 for j in range(1, 140):
-                    x = ((i/240)*(self.sizeOfPlane*2)) - self.sizeOfPlane
-                    y = -((j/140)*(self.sizeOfPlane*2)) + self.sizeOfPlane
-                    lvlConvergence = math.floor(self.levelOfConvergence(x, y))
-                    self.canvas.create_rectangle(5+(i*5), 5+(j*5), 10+(i*5), 10+(j*5), fill=self.convergenceColors[lvlConvergence], tags='pixels')  
+                    x = ((i/240)*(self.MaxLongAxisX*2)) - self.sizeOfPlane
+                    y = -((j/140)*(self.MaxLongAxisY*2)) + self.sizeOfPlane
+
+                    if self.excludePoint(x, y):
+                        self.canvas.create_rectangle(5+(i*5), 5+(j*5), 10+(i*5), 10+(j*5), fill='gray6', tags='pixels')
+                    else:
+                        lvlConvergence = math.floor(self.levelOfConvergence(x, y))
+                        self.canvas.create_rectangle(5+(i*5), 5+(j*5), 10+(i*5), 10+(j*5), fill=self.convergenceColors[lvlConvergence], tags='pixels')  
+
+
         else:
-            print('Scale Error')
+            print('Error')
 
         
        
@@ -144,6 +156,44 @@ class Mandelbrot:
             return k >= 2
         except:
             return False
+
+    def excludePoint(self, x, y):
+        """
+        if point is divergence
+        Mandelbrot is only X(-1.9, 0.5] Y[1, -1] for any ponits converge
+        so many ponits divergen
+        """
+        if x<-1.9 or x > 0.5:
+            return True
+
+        if y < -1.3 or y > 1.3:
+            return True
+
+        if x < -1 and y > 0.6:
+            return True
+
+        if x < -1 and y < -0.6:
+            return True
+
+        if x < -1.5 and y > 0.05:
+            return True
+
+        if x < -1.5 and y < -0.05:
+            return True
+
+        if x < -0.3 and y > 0.7:
+            return True
+
+        if x < -0.3 and y < -0.7:
+            return True
+
+        if x > 0.2 and y > 0.7:
+            return True
+
+        if x > 0.2 and y < -0.7:
+            return True
+        
+        return False
 
 
 m = Mandelbrot()
