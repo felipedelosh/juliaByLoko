@@ -25,18 +25,27 @@ import math # To calculate floor
 
 class Mandelbrot:
     def __init__(self):
+        self.pathProject = str(os.path.dirname(os.path.abspath(__file__)))
         self.screem = Tk()
         self.canvas = Canvas(self.screem, width=1280, height=720, bg='snow') # Draw everythis here
         self.txtScale = Entry(self.canvas)
         self.lblInsertScale = Label(self.canvas, text="Insert a # Scale:")
         self.btnCalcular = Button(self.canvas, text="Calculate >>", command=self.calculate)
-        self.pathProject = str(os.path.dirname(os.path.abspath(__file__)))
+        self.lblScaleX = Label(self.canvas, text="Scale X:")
+        self.sliderX = Scale(self.canvas, from_=1, to=100, orient=HORIZONTAL)
+        self.lblScaleY = Label(self.canvas, text="Scale Y:")
+        self.sliderY = Scale(self.canvas, from_=1, to=100, orient=HORIZONTAL)
+        self.lblZoom = Label(self.canvas, text="Zoom:")
+        self.sliderZ = Scale(self.canvas, from_=1, to=100, orient=HORIZONTAL)
+
+
         """I need two variables to reescale a planXY:
         0,0 ist a first iteration but in the realidad is a point (-2, -2)
         ...
         """
-        self.MaxLongAxisX = 2
-        self.MaxLongAxisY = 2
+        # Values to move x,y,z
+        self.MaxLongAxisX = 1
+        self.MaxLongAxisY = 1
         self.sizeOfPlane = 2
         #Try to load a colors.txt
         self.convergenceColors = []
@@ -61,6 +70,12 @@ class Mandelbrot:
         self.lblInsertScale.place(x=20, y=20)
         self.txtScale.place(x=20, y=50)
         self.btnCalcular.place(x=200, y=50)
+        self.lblScaleX.place(x=10, y=100)
+        self.sliderX.place(x=10, y=120)
+        self.lblScaleY.place(x=10, y=160)
+        self.sliderY.place(x=10, y=180)
+        self.lblZoom.place(x=10, y=220)
+        self.sliderZ.place(x=10, y=240)
         # Draw x and y Axis
         #self.canvas.create_line(0, 360, 1280, 360)
         #self.canvas.create_line(640, 0, 640, 720)
@@ -70,7 +85,7 @@ class Mandelbrot:
 
       
         # Refresh Screem
-        self.screem.after(0, self.refreshInterface)
+        #self.screem.after(0, self.refreshInterface)
         self.screem.mainloop()
 
     # Refresh a screem 30ms
@@ -88,7 +103,7 @@ class Mandelbrot:
         Note I have : i5-7200 and not calculate over 300 too busy
         Calculate a pont(x, y) e Mandelbrot
         
-        Region#1 e X[-2 to 2] and Y[-2 to 2]
+        Region#1 e X[-2 to 2]*scaleX and Y[-2 to 2]*ScaleY
 
         a point forfor (0,0) = -2, 2 map of values
 
@@ -102,20 +117,20 @@ class Mandelbrot:
 
         """
         self.canvas.delete("pixels")
+        # Recalculate x, y, z
+        self.sizeOfPlane = ((self.MaxLongAxisX * self.MaxLongAxisY) * 2)
 
         if self.validateScale():
-            for i in range(1, 240):
-                for j in range(1, 140):
-                    x = ((i/240)*(self.MaxLongAxisX*2)) - self.sizeOfPlane
-                    y = -((j/140)*(self.MaxLongAxisY*2)) + self.sizeOfPlane
+            for i in range(1, 420):
+                for j in range(1, 230):
+                    x = ((i/420)*(3*self.MaxLongAxisX)) - self.sizeOfPlane
+                    y = ((j/230)*(3.6*self.MaxLongAxisY)) - self.sizeOfPlane
 
                     if self.excludePoint(x, y):
-                        self.canvas.create_rectangle(5+(i*5), 5+(j*5), 10+(i*5), 10+(j*5), fill='gray6', tags='pixels')
+                        self.canvas.create_rectangle(3+(i*3), 3+(j*3), 6+(i*3), 6+(j*3), fill='gray6', tags='pixels')
                     else:
                         lvlConvergence = math.floor(self.levelOfConvergence(x, y))
-                        self.canvas.create_rectangle(5+(i*5), 5+(j*5), 10+(i*5), 10+(j*5), fill=self.convergenceColors[lvlConvergence], tags='pixels')  
-
-
+                        self.canvas.create_rectangle(3+(i*3), 3+(j*3), 6+(i*3), 6+(j*3), fill=self.convergenceColors[lvlConvergence], tags='pixels')  
         else:
             print('Error')
 
