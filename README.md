@@ -3,7 +3,7 @@
 <h4>Julia</h4>
 
 ![Header](https://raw.githubusercontent.com/felipedelosh/juliaByLoko/main/Evidence/1100.jpg "HeaderJuliaByLoko")
-<br><br>I wacth a veritasium <a href="https://www.youtube.com/watch?v=ovJcsL7vyrk">YT video</a> and my eyes don't beliebe it.<br> and try to my self make it in python
+<br><br>I wacth a veritasium <a href="https://www.youtube.com/watch?v=ovJcsL7vyrk">YT video</a> and my eyes don't believe it.<br> and try to my self make it in python
 
 ## :hammer:Function
 
